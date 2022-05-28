@@ -146,7 +146,7 @@ let arrItems = ['item1', 'item2', 'item3'];
 let arrClone = [];
 
 for(let i = 0; i < arrItems.length; i++) {
-    arrClone.push(item[i]);
+    arrClone.push(arrItems[i]);
 };
 //--------------------------------------------------
 let arrItems2 = ['item1', 'item2', 'item3'];
@@ -155,3 +155,158 @@ let arrClone2 = [];
 arrItems2.forEach(function(item) {
     arrClone2.push(item);
 });
+
+//===============================================================
+//====================  Использование thisArg  ==================
+//===============================================================
+/**
+ * пример обновляет свойства объекта, когда 
+ * перебирает записи массива:
+ */
+
+function Counter() {
+    this.sum = 0
+    this.count = 0
+};
+
+Counter.prototype.add = function(array) {
+    array.forEach((entry) => {
+        this.sum += entry
+        ++this.count
+    }, this)
+};
+
+const obj = new Counter();
+obj.add([2, 5, 9]);
+
+// console.log(obj.count); // 3
+// console.log(obj.sum); // 16
+
+/**
+ * Поскольку в forEach()передан параметр 
+ * thisArg (this), он затем передаётся в 
+ * callback при каждом вызове. И callback 
+ * использует его в качестве собственного 
+ * значения this.
+ */
+
+/**
+ * Если при передаче callback функции используется 
+ * выражение стрелочной функции, параметр thisArg 
+ * может быть опущен, так как все стрелочные функции 
+ * лексически привязываются к значению  this.
+ * 
+ */
+
+
+//===============================================================
+//====================  Прерывание цикла  ==================
+//===============================================================
+
+/**
+ * Следующий код использует Array.prototype.every() 
+ * для логирования содержимого массива и останавливается 
+ * при превышении значением заданного порогового значения OVERFLOW.
+ */
+
+/**
+ * Метод every() проверяет, удовлетворяют ли все элементы 
+ * массива условию, заданному в передаваемой функции.
+ */
+
+const OVERFLOW = 15;
+const arrBase = [5, 2, 16, 4, 3, 18, 20];
+let showLog = null;
+
+showLog = arrBase.every(function(element, index, array) {
+    console.log('element:', element);
+    if (element >= OVERFLOW) {
+        return false;
+    }
+    return true;
+});
+console.log('showLog: ', showLog);
+// element: 5
+// element: 2
+// element: 16
+// showLog:  false
+
+//===============================================================
+//==============  Функция копирования объекта  ==============
+//===============================================================
+/**
+ * Следующий код создаёт копию переданного объекта. 
+ * Существует несколько способов создания копии объекта, 
+ * и это один из них. Он позволяет понять, каким образом 
+ * работает Array.prototype.forEach(), используя функции 
+ * мета-свойств Object.
+ */
+
+function copy(obj) {
+    let copy = Object.create(Object.getPrototypeOf(obj));
+    let propNames = Object.getOwnPropertyNames(obj);
+
+    propNames.forEach(function(name) {
+        let desc = Object.getOwnPropertyDescriptor(obj, name);
+        Object.defineProperty(copy, name, desc);
+    });
+    return copy;
+};
+
+const objSample = {a: 1, b: 2, c: {a: 1, b: 2,}};
+const objSampleClone = copy(objSample);
+// console.log(objSampleClone); // {a: 1, b: 2}
+// objSampleClone['c']['a'] = 999;
+// console.log(objSample);
+
+//===============================================================
+//========= Модификация массива во время итерации  ==============
+//===============================================================
+
+/**
+ * При достижении записи, содержащей значение 'two', 
+ * первая запись всего массива удаляется, в результате 
+ * чего все оставшиеся записи перемещаются на одну 
+ * позицию вверх. Поскольку элемент 'four' теперь находится 
+ * на более ранней позиции в массиве, 'three' будет пропущен.
+ */
+
+let words = ['one', 'two', 'three', 'four']
+    words.forEach((word) => {
+        console.log(word);
+    if (word === 'two') {
+        words.shift();
+    }
+});
+// one
+// two
+// four
+
+//===============================================================
+//========= Выравнивание (уплощение) массива  ==============
+//===============================================================
+/**
+ * Следующий пример приведён только для целей обучения. 
+ * Если вы хотите выравнять массив с помощью встроенных 
+ * методов, вы можете использовать Array.prototype.flat()
+ */
+
+function flatten(arr) {
+    const result = [];
+
+    arr.forEach((i) => {
+        if (Array.isArray(i)) {
+        result.push(...flatten(i))
+        } else {
+        result.push(i)
+        }
+    })
+
+    return result;
+}
+
+  // Usage
+const nested = [1, 2, 3, [4, 5, [6, 7], 8, 9]]
+
+flatten(nested) // [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
