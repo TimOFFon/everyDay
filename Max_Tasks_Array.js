@@ -1,7 +1,4 @@
-console.clear();
-console.log("js start task");
-
-export const input = [
+const input = [
   { value: "qweq", order: 4, expired: false },
   { value: "asdq", order: 2, expired: true },
   { value: "jkri", order: 1, expired: false },
@@ -14,9 +11,17 @@ export const input = [
 
 function chekingObj(arr) {
   let str = "";
-  const newArr = arr
+  arr
     .filter((x) => !x.expired)
-    .sort((a, b) => a.order - b.order);
-  console.log(newArr);
+    .sort((a, b) => a.order - b.order)
+    .reduceRight((a,b) => a + b.value, 0)
+    .split('')
+    .map((item) => {
+      if(item !== '0' && !str.includes(item)) {
+          str += item;
+      }
+    })
+  
+  return console.log(str);
 }
 chekingObj(input);
