@@ -27,19 +27,12 @@ function isolateIt(arr){
             return elem = frstPart + '|' + secondPart;
         } else {
             let midI = ((elem.length - 1) / 2);
-        
-            // let letterInStr = elem[midI];
-            let regexp = /./y;
-
-            console.log(midI);
-            // console.log(letterInStr);
-            console.log(elem.length);
-
-            regexp.lastIndex = midI;
-            // console.log(regexp.lastIndex);
-            console.log(regexp.exec(elem));
-
-            return elem = elem.replace(regexp.exec(elem), '|');
+            let midBackI = ((elem.length - 1) - midI);
+            let strHead = elem.slice(0, midI);
+            // console.log(strHead);
+            let strAss = elem.slice(-midBackI);
+            // console.log(strAss);
+            return elem = strHead + '|' + strAss;
         }});
 };
 
@@ -54,7 +47,7 @@ let problemArr = ["IHJR7GsMHqDvlVMsb","O!7$jQ._Uog_","wNqK","3pbbDDcpxS*","f3q"]
 
 let problemElArr = ["IHJR7GsMHqDvlVMsb"];
 
-console.log(isolateIt(problemElArr));
+console.log(isolateIt(problemArr));
 
 /**['DLU|!tG', 'q3|qb', '4r6TDY|bBC%&s', '$2X|2CX', '0|p', '!SUl|$oDr', 'sv h*|sjG=y', '-H.jr|uJ|jz', 'l|R', 'NOhZ|7T6A', '|EQjZ-N', '0Of 2DJ|E!bkg+e'] */
 
