@@ -192,36 +192,88 @@ function shuffleIt(arr,...a) {
  * sortIt([1,2,3,4,4,5,5,6,6]) should return [3,2,1,6,6,5,5,4,4]
  */
 
-let arr41 = [1,1,1,2,2,3]; // [3,2,2,1,1,1]
+let arr41 = [1,1,1,2,2,2,2,3]; // [3,2,2,1,1,1]
 let arr42 = [1,1,1,2,2,2,3,3,3]; // [3,3,3,2,2,2,1,1,1]
 let arr43 = [1,2,3,4,4,5,5,6,6]; //  [3,2,1,6,6,5,5,4,4]
 
-function sortIt(arr){
+function sortIt(arr) {
     let arrWork = arr.slice();
-    for (let i = 0; i < arr.length; i++) {
-            if(arr[i] === arr[i+1]) {
-                arrWork[i] = arrWork[i] / 10;
-                arrWork[i+1] = arrWork[i+1] / 10;
-            };
-            console.log(arrWork);
+    function comparator(arrX) {
+        let weight = 0;
+        let indexTeleport = 0;
+        let objWeights = {};
+        arrX.reduce( (before, now) => {
+            console.log(before);
+            if(before === now) {
+                weight += 1;
+            } else {
+                objWeights.before = weight;
+                weight = 1;
+            }
+        }, 0);
+        // for (let i = 0; i < arrX.length; i++) {
+            
+        //     console.log(indexTeleport);
+            // let elementA = arrX[i];
+            // let afterA = arrX[i + 1];
+
+            // if (elementA !== afterA) {
+            //     objWeights[elementA] = weight;
+            //     weight = 1;
+            // } 
+
+            
+        
+            // for (let j = i + 1; j < arrX.length; j++) {
+            //     let elementB = arrX[j];
+            //     if(elementA === elementB) {
+            //         weight += 1;
+            //         indexTeleport += 1;
+            //     }; 
+                
+            // };
+        
+        // }
+        // console.log(objWeights);
+        // console.log(weight);
+        return objWeights;
     };
-
-    arrWork.sort((a,b) => {
-        if(a>b) return -1;
-    });
-
-    // console.log(arrWork);
-
-    let arrWork2 = arrWork.slice();
-
-    for (let i = 0; i < arrWork2.length; i++) {
-        if(Number.isInteger(arrWork2[i]) === false) {
-            arrWork2[i] = arrWork2[i] * 10;
-        };
-    };
-    return arrWork2;
+    
+    let objWorck = comparator(arrWork);
+    console.log(objWorck);
 };
 
-// console.log(sortIt(arr41));
-console.log(sortIt(arr42));
-// console.log(sortIt(arr43));
+let problemArr1 = [1, 2, 2, 3, 3, 4, 5, 6, 6, 7, 7, 7];
+
+console.log(sortIt(arr41)); // [3,2,2,1,1,1]
+// console.log(sortIt(arr42)); // [3,3,3,2,2,2,1,1,1]
+// console.log(sortIt(arr43)); // [3,2,1,6,6,5,5,4,4]
+// console.log(sortIt(problemArr1)); // [3,2,1,6,6,5,5,4,4]
+
+
+// function sortIt(arr){
+//     let arrWork = arr.slice();
+//     for (let i = 0; i < arr.length; i++) {
+//             if(arr[i] === arr[i+1]) {
+//                 arrWork[i] = arr[i] / 10;
+//                 arrWork[i+1] = arr[i+1] / 10;
+//             };   
+//     };
+
+//     // console.log(arrWork);
+
+//     arrWork.sort((a,b) => {
+//         if(a>b) return -1;
+//     });
+
+//     // console.log(arrWork);
+
+//     let arrWork2 = arrWork.slice();
+
+//     for (let i = 0; i < arrWork2.length; i++) {
+//         if(Number.isInteger(arrWork2[i]) === false) {
+//             arrWork2[i] = arrWork2[i] * 10;
+//         };
+//     };
+//     return arrWork2;
+// };
