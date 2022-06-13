@@ -298,29 +298,23 @@ function sortIt(arr) {
     let arrObj = [];
     let resultArr = [];
     function comparator(arrX) {
+
         let weight = 0;
         let indexTeleport = 0;
+
         for(let index = 0; index < arrWork.length; index = indexTeleport) {
+
             let elementA = arrWork[index];
-            // console.log(indexTeleport);
-            // console.log(elementA);
-            // console.log(index);
-            // console.log(weight);
         
             for (let i = 0; i < arrWork.length; i++) {
+
                 let elementB = arrWork[i];
-                // console.log(elementA);
-                // console.log(i);
-                // console.log(elementA, elementB);
-                // console.log(elementB, i);
                 if(elementA === elementB && i < arr.length) {
                     weight++;
                     indexTeleport++;
-                    // console.log(weight);
                 };
-                // console.log(elementA, elementB);
+
                 if(elementA === elementB  && elementA !== arrWork[i+1]) {//<--- Из-за того, что я пытался пользовать elementB[i+1] потерял 2 дня
-                    // console.log(elementA, elementB, arrWork[i+1]);
                     for (let j = 0; j < weight; j++) {
                         arrObj.push({name: elementA, value: weight});
                     };
@@ -333,56 +327,14 @@ function sortIt(arr) {
     };
     
     let arrObjWorck = comparator(arrWork);
-    // console.log(arrObjWorck);
-    // arrObjWorck.sort((a, b) => {
-    //     if(a.value === b.value) {
-    //         return (a.key - b.key);
-    //     }
-    // });
-    // for (let High = 0; High < arrObjWorck.length; High++) {
-    //     let countSort = 0;
-    //     for (let s = 0; s < arrObjWorck.length; s++) {
-    //         if(countSort  < arrObjWorck.length - 2) {
-    //             countSort  = s + 1;
-    //         }
-    //         let firstName = arrObjWorck[s].name;
-            
-    //         let firstVal = arrObjWorck[s].value;
-    //         let secName = arrObjWorck[countSort].name;
-            
-    //         let secVal = arrObjWorck[countSort].value;
-            
 
-    //         if(firstName < secName && firstVal === secVal) {
-    //             let bufer = arrObjWorck[s];
-    //             arrObjWorck[s] = arrObjWorck[s+1];
-    //             arrObjWorck[s+1] = bufer;
-    //         }
-    //     };    
-    // }
-        
-
-
-    let divider = 1;
-    let counterR = 0;
-    for (let r = 0; r < arrObjWorck.length; r++) {
-        if(counterR < arrObjWorck.length - 2) {
-            counterR = r + 1;
-        }
-        // console.log(counterR);
-
-        // arrObjWorck[r].value = arrObjWorck[r].value / divider;
-        if(arrObjWorck[r].name !== arrObjWorck[counterR].name) {
-            divider *= 10;
-        }
-    };
 
     arrObjWorck.sort((a, b) => {
-        if(b.name > a.name) {
-            return (b - a);
+        if(a.name > b.name) {
+            return (b.value - a.value);
         }
         // if(a.value < b.value) {
-        //     return (b - a);
+        //     return (a-b);
         // }
         // if(a.value === b.value) {
         //     return (a.name - b.name);
@@ -394,8 +346,8 @@ function sortIt(arr) {
         let elementK = arrObjWorck[k].name;
         resultArr.push(elementK);
     };
-    console.log(arrObjWorck);
-    return resultArr;
+    // console.log(arrObjWorck);
+    return resultArr.reverse();
 };
 
 let problemArr1 = [1, 2, 2, 3, 3, 4, 5, 6, 6, 7, 7, 7];
@@ -403,8 +355,17 @@ let problemArr1 = [1, 2, 2, 3, 3, 4, 5, 6, 6, 7, 7, 7];
 
 console.log(sortIt(problemArr1)); // [3,2,2,1,1,1]
 // console.log(sortIt(arr42)); // [3,3,3,2,2,2,1,1,1]
-// console.log(sortIt(arr43)); // [3,2,1,6,6,5,5,4,4]
+console.log(sortIt(arr43)); // [3,2,1,6,6,5,5,4,4]
 // console.log(sortIt(problemArr1)); // [3,2,1,6,6,5,5,4,4]
+
+
+//===============================================================
+//===============================================================
+//===============================================================
+//===============================================================
+
+
+
 
 
 // function sortIt(arr){
@@ -470,3 +431,46 @@ console.log(sortIt(problemArr1)); // [3,2,2,1,1,1]
 // }
 // console.log(objWeights);
 // console.log(weight);
+//=============================================================
+    // console.log(arrObjWorck);
+    // arrObjWorck.sort((a, b) => {
+    //     if(a.value === b.value) {
+    //         return (a.key - b.key);
+    //     }
+    // });
+    // for (let High = 0; High < arrObjWorck.length; High++) {
+    //     let countSort = 0;
+    //     for (let s = 0; s < arrObjWorck.length; s++) {
+    //         if(countSort  < arrObjWorck.length - 2) {
+    //             countSort  = s + 1;
+    //         }
+    //         let firstName = arrObjWorck[s].name;
+            
+    //         let firstVal = arrObjWorck[s].value;
+    //         let secName = arrObjWorck[countSort].name;
+            
+    //         let secVal = arrObjWorck[countSort].value;
+            
+
+    //         if(firstName < secName && firstVal === secVal) {
+    //             let bufer = arrObjWorck[s];
+    //             arrObjWorck[s] = arrObjWorck[s+1];
+    //             arrObjWorck[s+1] = bufer;
+    //         }
+    //     };    
+    // }
+//=============================================================
+
+ // let divider = 1;
+    // let counterR = 0;
+    // for (let r = 0; r < arrObjWorck.length; r++) {
+    //     if(counterR < arrObjWorck.length - 2) {
+    //         counterR = r + 1;
+    //     }
+    //     // arrObjWorck[r].value = arrObjWorck[r].value / divider;
+    //     if(arrObjWorck[r].name !== arrObjWorck[counterR].name) {
+    //         divider *= 10;
+    //     }
+    // };
+ 
+
