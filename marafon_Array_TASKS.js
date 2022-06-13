@@ -3,6 +3,28 @@
  * 
  * Training JS #23: methods of arrayObject---push(), pop(), shift() and unshift()
  * (3:00)
+ * Кодирование в функции InfiniteLoop. функция принимает 3
+ * параметра. 1-й параметр - это arr, это 2D-массив, он содержит
+ * три 1D-массива. Второй параметр - d, это строка. Третий
+ * параметр — n, это число.
+ * 
+ * Вы можете думать об массиве как о рве, в который постоянно
+ * втекают элементы масива, по подобию воды. Направление потока
+ * контролируется параметром d. Значение d может быть «левым»
+ * или «правым». «влево» означает, что «поток» движется слева.
+ * 
+ * Все элементы в массиве 1D перемещаются влево на n позиции
+ * если они выходят за пределы массива то элемент перемещается в
+ * хвост с левой стороны массива;
+ * 
+ * если он превышает левый граничный элемент, он будет перемещен
+ * в хвост 3-го массива (например, в круг). 
+ * 
+ * В право, та же операция, но с движением вправо.
+ * 
+ * [[1,2,3],[4,5,6],[7,8,9]],"left",1=[[2,3,4],[5,6,7],[8,9,1]]
+ * [[1,2,3],[4,5,6],[7,8,9]],"right",1=[[9,1,2],[3,4,5],[6,7,8]]
+ * [[1,2],[3,4,5,6],[7,8,9,10]],"left",2=[[3,4],[5,6,7,8],[9,10,1,2]]
  */
 let arr01 = [[1,2,3],[4,5,6],[7,8,9]];
 let arr02 = [[1,2,3],[4,5,6],[7,8,9]];
@@ -11,9 +33,7 @@ let arr03 = [[1,2],[3,4,5,6],[7,8,9,10]];
 let arrEx1 = [[3,1,2],[7,8,3,8,0],[8,4,9]];
 
 
-// [[1,2,3],[4,5,6],[7,8,9]],"left",1 => [[2,3,4],[5,6,7],[8,9,1]]
-// [[1,2,3],[4,5,6],[7,8,9]],"right",1 => [[9,1,2],[3,4,5],[6,7,8]]
-// [[1,2],[3,4,5,6],[7,8,9,10]],"left",2 =>[[3,4],[5,6,7,8],[9,10,1,2]]
+
 
 
 //[[3,1,2],[7,8,3,8,0],[8,4,9]]
@@ -87,7 +107,9 @@ function infiniteLoop(arr,d,n) {
 
 
 // let arrEx2 = [[1,2,3],[4,5,6],[7,8,9]];
-// infiniteLoop(arrEx2, "right", 1); 
+// infiniteLoop(arr01, "left", 1); 
+// infiniteLoop(arr02, "right", 1); 
+// infiniteLoop(arr03, "left", 2); 
 
 
 /**   ======================== splice() ======================
@@ -134,12 +156,11 @@ function threeInOne(arr){
  * Training JS #22: Unlock new skills--Arrow function,spread operator and  
  *  deconstruction
  * 
- * Create a function shuffleIt. The function accepts two or more parameters.
- * The first parameter arr is an array of numbers, followed by an arbitrary
- * number of numeric arrays. Each numeric array contains two numbers, which
- * are indices for elements in arr (the numbers will always be within bounds).
- * For every such array, swap the elements. Try to use all your new skills:
- * arrow functions, the spread operator, destructuring, and rest parameters.
+ *Создайте функцию shuffleIt. Функция принимает два или более
+ *параметра. Первый параметр arr представляет собой массив чисел
+ *за которым следует произвольное количество числовых массивов.
+ *Каждый числовой массив содержит два числа, которые являются *индексами элементов в arr (числа всегда будут в пределах *допустимого диапазона).
+ *Для каждого такого массива поменяйте местами элементы. 
  * 
  * shuffleIt([1,2,3,4,5],[1,2]) should return [1,3,2,4,5]
  * shuffleIt([1,2,3,4,5],[1,2],[3,4]) should return [1,3,2,5,4]
@@ -164,13 +185,89 @@ function shuffleIt(arr,...a) {
         workArr[index2] = bufer;
     };
 
-    console.log(workArr);
+    // console.log(workArr);
 };
 
 // shuffleIt(arr31, arrInd31, arrInd32, arrInd33);
 
+//==============================================================
+//=============  РЕШЕНИЕ САРДОРА ===============================
+//==============================================================
+// function infiniteLoop(arr, d, n) {
 
+//     const lenghArr = []
+  
+//     let res = []
+//     let newArr = []
+//     for(let char of arr){
+//       lenghArr.push(char.length)
+//       newArr.push(...char)
+//     }
+//       if(d ==='right'){
+//         for(let i = 0;i<newArr.length-1;i++){
+//           res.push(newArr[i])
+//         }
+//         let overArr = newArr.slice(-n,newArr.length)
+//         console.log(overArr)
+//         res.unshift(...overArr);
+//     }else{
+//       for(let b=n;b<newArr.length;b++){
+//         res.push(newArr[b])
+//       }
+//       let overArr = newArr.slice(0,n);
+//       res.push(...overArr);
+//     }
+//     console.log(lenghArr[0])
+//     const firstArr= [];
+//     const secondArr = [];
+//     const thirdArr = [];
+//   for(let i = 0;i<res.length;i++){
+//       if(i<lenghArr[0]){
+//         firstArr.push(res[i])
+  
+//       }else if (i>=firstArr.length && i<lenghArr[0]+lenghArr[1]){
+//         secondArr.push(res[i])
+  
+//       }else if (i>=lenghArr[0]+lenghArr[1] && i<lenghArr[0]+lenghArr[1]+lenghArr[2]){
+//         thirdArr.push(res[i])
+  
+//       }
+  
+//   }
+//   let resultFinish = [];
+//   resultFinish.push(firstArr);
+//   resultFinish.push(secondArr);
+//   resultFinish.push(thirdArr);
+//   return resultFinish;
+//   }
 
+//==============================================================
+//=============  РЕШЕНИЕ АРТЁМА ===============================
+//==============================================================
+// function infiniteLoop(arr, d, n) {
+//     const dirRight = d == "right" ? true : false;
+//     while (n--) {
+//       arr.forEach((itemArr, indexArr) => {
+//         if (dirRight) {
+//           if (indexArr == arr.length - 1) {
+//             arr[0].unshift(itemArr.pop());
+//           } else {
+//             arr[indexArr + 1].unshift(itemArr.pop());
+//           }
+//         } else {
+//           if (!indexArr) {
+//             arr[arr.length - 1].push(itemArr.shift());
+//           } else {
+//             arr[indexArr - 1].push(itemArr.shift());
+//           }
+//         }
+//       });
+//     }
+//     return arr;
+//   }
+//==============================================================
+//==============================================================
+//==============================================================
 
 
 /**
@@ -192,60 +289,119 @@ function shuffleIt(arr,...a) {
  * sortIt([1,2,3,4,4,5,5,6,6]) should return [3,2,1,6,6,5,5,4,4]
  */
 
-let arr41 = [1,1,1,2,2,2,2,3]; // [3,2,2,1,1,1]
+let arr41 = [1,1,1,2,2,2,2,3,5,6]; // [3,2,2,1,1,1]
 let arr42 = [1,1,1,2,2,2,3,3,3]; // [3,3,3,2,2,2,1,1,1]
 let arr43 = [1,2,3,4,4,5,5,6,6]; //  [3,2,1,6,6,5,5,4,4]
 
 function sortIt(arr) {
     let arrWork = arr.slice();
+    let arrObj = [];
+    let resultArr = [];
     function comparator(arrX) {
         let weight = 0;
         let indexTeleport = 0;
-        let objWeights = {};
-        arrX.reduce( (before, now) => {
-            console.log(before);
-            if(before === now) {
-                weight += 1;
-            } else {
-                objWeights.before = weight;
-                weight = 1;
-            }
-        }, 0);
-        // for (let i = 0; i < arrX.length; i++) {
-            
-        //     console.log(indexTeleport);
-            // let elementA = arrX[i];
-            // let afterA = arrX[i + 1];
-
-            // if (elementA !== afterA) {
-            //     objWeights[elementA] = weight;
-            //     weight = 1;
-            // } 
-
-            
+        for(let index = 0; index < arrWork.length; index = indexTeleport) {
+            let elementA = arrWork[index];
+            // console.log(indexTeleport);
+            // console.log(elementA);
+            // console.log(index);
+            // console.log(weight);
         
-            // for (let j = i + 1; j < arrX.length; j++) {
-            //     let elementB = arrX[j];
-            //     if(elementA === elementB) {
-            //         weight += 1;
-            //         indexTeleport += 1;
-            //     }; 
-                
-            // };
-        
-        // }
-        // console.log(objWeights);
-        // console.log(weight);
-        return objWeights;
+            for (let i = 0; i < arrWork.length; i++) {
+                let elementB = arrWork[i];
+                // console.log(elementA);
+                // console.log(i);
+                // console.log(elementA, elementB);
+                // console.log(elementB, i);
+                if(elementA === elementB && i < arr.length) {
+                    weight++;
+                    indexTeleport++;
+                    // console.log(weight);
+                };
+                // console.log(elementA, elementB);
+                if(elementA === elementB  && elementA !== arrWork[i+1]) {//<--- Из-за того, что я пытался пользовать elementB[i+1] потерял 2 дня
+                    // console.log(elementA, elementB, arrWork[i+1]);
+                    for (let j = 0; j < weight; j++) {
+                        arrObj.push({name: elementA, value: weight});
+                    };
+                    weight = 0;
+                };
+            };
+            
+        };
+        return arrObj;
     };
     
-    let objWorck = comparator(arrWork);
-    console.log(objWorck);
+    let arrObjWorck = comparator(arrWork);
+    // console.log(arrObjWorck);
+    // arrObjWorck.sort((a, b) => {
+    //     if(a.value === b.value) {
+    //         return (a.key - b.key);
+    //     }
+    // });
+    // for (let High = 0; High < arrObjWorck.length; High++) {
+    //     let countSort = 0;
+    //     for (let s = 0; s < arrObjWorck.length; s++) {
+    //         if(countSort  < arrObjWorck.length - 2) {
+    //             countSort  = s + 1;
+    //         }
+    //         let firstName = arrObjWorck[s].name;
+            
+    //         let firstVal = arrObjWorck[s].value;
+    //         let secName = arrObjWorck[countSort].name;
+            
+    //         let secVal = arrObjWorck[countSort].value;
+            
+
+    //         if(firstName < secName && firstVal === secVal) {
+    //             let bufer = arrObjWorck[s];
+    //             arrObjWorck[s] = arrObjWorck[s+1];
+    //             arrObjWorck[s+1] = bufer;
+    //         }
+    //     };    
+    // }
+        
+
+
+    let divider = 1;
+    let counterR = 0;
+    for (let r = 0; r < arrObjWorck.length; r++) {
+        if(counterR < arrObjWorck.length - 2) {
+            counterR = r + 1;
+        }
+        // console.log(counterR);
+
+        // arrObjWorck[r].value = arrObjWorck[r].value / divider;
+        if(arrObjWorck[r].name !== arrObjWorck[counterR].name) {
+            divider *= 10;
+        }
+    };
+
+    arrObjWorck.sort((a, b) => {
+        if(b.name > a.name) {
+            return (b - a);
+        }
+        // if(a.value < b.value) {
+        //     return (b - a);
+        // }
+        // if(a.value === b.value) {
+        //     return (a.name - b.name);
+        // }
+
+    });
+
+    for (let k = 0; k < arrObjWorck.length; k++) {
+        let elementK = arrObjWorck[k].name;
+        resultArr.push(elementK);
+    };
+    console.log(arrObjWorck);
+    return resultArr;
 };
 
 let problemArr1 = [1, 2, 2, 3, 3, 4, 5, 6, 6, 7, 7, 7];
+// [5, 4, 1, 6, 6, 3, 3, 2, 2, 7, 7, 7]
 
-console.log(sortIt(arr41)); // [3,2,2,1,1,1]
+console.log(sortIt(problemArr1)); // [3,2,2,1,1,1]
 // console.log(sortIt(arr42)); // [3,3,3,2,2,2,1,1,1]
 // console.log(sortIt(arr43)); // [3,2,1,6,6,5,5,4,4]
 // console.log(sortIt(problemArr1)); // [3,2,1,6,6,5,5,4,4]
@@ -277,3 +433,40 @@ console.log(sortIt(arr41)); // [3,2,2,1,1,1]
 //     };
 //     return arrWork2;
 // };
+
+//=============================================================
+        // arrX.reduce( (before, now) => {
+        //     console.log(before);
+        //     if(before === now) {
+        //         weight += 1;
+        //     } else {
+        //         objWeights.before = weight;
+        //         weight = 1;
+        //     }
+        // }, 0);
+//=============================================================
+// for (let i = 0; i < arrX.length; i++) {
+            
+        
+//     let elementA = arrX[i];
+//     let afterA = arrX[i + 1];
+
+//     if (elementA !== afterA) {
+//         objWeights[elementA] = weight;
+//         weight = 1;
+//     } 
+
+    
+
+//     for (let j = i + 1; j < arrX.length; j++) {
+//         let elementB = arrX[j];
+//         console.log(elementA, elementB);
+//         if(elementA === elementB) {
+//             weight += 1;
+//         }; 
+        
+//     };
+
+// }
+// console.log(objWeights);
+// console.log(weight);
