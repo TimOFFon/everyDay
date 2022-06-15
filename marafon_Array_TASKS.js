@@ -26,11 +26,11 @@
  * [[1,2,3],[4,5,6],[7,8,9]],"right",1=[[9,1,2],[3,4,5],[6,7,8]]
  * [[1,2],[3,4,5,6],[7,8,9,10]],"left",2=[[3,4],[5,6,7,8],[9,10,1,2]]
  */
-let arr01 = [[1,2,3],[4,5,6],[7,8,9]];
-let arr02 = [[1,2,3],[4,5,6],[7,8,9]];
-let arr03 = [[1,2],[3,4,5,6],[7,8,9,10]];
+// let arr01 = [[1,2,3],[4,5,6],[7,8,9]];
+// let arr02 = [[1,2,3],[4,5,6],[7,8,9]];
+// let arr03 = [[1,2],[3,4,5,6],[7,8,9,10]];
 
-let arrEx1 = [[3,1,2],[7,8,3,8,0],[8,4,9]];
+// let arrEx1 = [[3,1,2],[7,8,3,8,0],[8,4,9]];
 
 
 
@@ -122,10 +122,10 @@ function infiniteLoop(arr,d,n) {
  * threeInOne( [1,2,3,4,5,6,7,8,9]) should return [6,15,24]
  * threeInOne( [1,3,5,2,4,6,7,7,7]) should return [9,12,21]
  */
-let arr11 = [1,2,3];
-let arr12 = [1,2,3,4,5,6];
-let arr13 = [1,2,3,4,5,6,7,8,9];
-let arr14 = [1,3,5,2,4,6,7,7,7];
+// let arr11 = [1,2,3];
+// let arr12 = [1,2,3,4,5,6];
+// let arr13 = [1,2,3,4,5,6,7,8,9];
+// let arr14 = [1,3,5,2,4,6,7,7,7];
 
 function threeInOne(arr){
 
@@ -166,11 +166,11 @@ function threeInOne(arr){
  * shuffleIt([1,2,3,4,5],[1,2],[3,4]) should return [1,3,2,5,4]
  * shuffleIt([1,2,3,4,5],[1,2],[3,4],[2,3]) should return [1,3,5,2,4]
  */
-let arr31 = [1,2,3,4,5];
+// let arr31 = [1,2,3,4,5];
 
-let arrInd31 = [1,2];
-let arrInd32 = [3,4];
-let arrInd33 = [2,3];
+// let arrInd31 = [1,2];
+// let arrInd32 = [3,4];
+// let arrInd33 = [2,3];
 
 function shuffleIt(arr,...a) {
     //coding here...
@@ -289,73 +289,35 @@ function shuffleIt(arr,...a) {
  * sortIt([1,2,3,4,4,5,5,6,6]) should return [3,2,1,6,6,5,5,4,4]
  */
 
-let arr41 = [1,1,1,2,2,2,2,3,5,6]; // [3,2,2,1,1,1]
-let arr42 = [1,1,1,2,2,2,3,3,3]; // [3,3,3,2,2,2,1,1,1]
-let arr43 = [1,2,3,4,4,5,5,6,6]; //  [3,2,1,6,6,5,5,4,4]
+// let arr41 = [1,1,1,2,2,2,2,3,5,6]; // [3,2,2,1,1,1]
+// let arr42 = [1,1,1,2,2,2,3,3,3]; // [3,3,3,2,2,2,1,1,1]
+// let arr43 = [1,2,3,4,4,5,5,6,6]; //  [3,2,1,6,6,5,5,4,4]
 
 function sortIt(arr) {
-    let arrWork = arr.slice();
-    let arrObj = [];
-    let resultArr = [];
-    function comparator(arrX) {
-
-        let weight = 0;
-        let indexTeleport = 0;
-
-        for(let index = 0; index < arrWork.length; index = indexTeleport) {
-
-            let elementA = arrWork[index];
-        
-            for (let i = 0; i < arrWork.length; i++) {
-
-                let elementB = arrWork[i];
-                if(elementA === elementB && i < arr.length) {
-                    weight++;
-                    indexTeleport++;
-                };
-
-                if(elementA === elementB  && elementA !== arrWork[i+1]) {//<--- Из-за того, что я пытался пользовать elementB[i+1] потерял 2 дня
-                    for (let j = 0; j < weight; j++) {
-                        arrObj.push({name: elementA, value: weight});
-                    };
-                    weight = 0;
-                };
-            };
-            
-        };
-        return arrObj;
+        let workArr = [];
+        let resultArr = [];
+    for(let i = 0; i < arr.length; i++) {
+        let element = arr[i];
+        let arrNumbers = arr.filter(item => item === element);
+        workArr.push({name: element, value: arrNumbers.length});
     };
-    
-    let arrObjWorck = comparator(arrWork);
-
-
-    arrObjWorck.sort((a, b) => {
-        if(a.name > b.name) {
-            return (b.value - a.value);
-        }
-        // if(a.value < b.value) {
-        //     return (a-b);
-        // }
-        // if(a.value === b.value) {
-        //     return (a.name - b.name);
-        // }
-
+    workArr.sort((a, b) => a.value - b.value || b.name - a.name);
+    workArr.forEach(element => {
+        resultArr.push(element.name);
     });
-
-    for (let k = 0; k < arrObjWorck.length; k++) {
-        let elementK = arrObjWorck[k].name;
-        resultArr.push(elementK);
-    };
-    // console.log(arrObjWorck);
-    return resultArr.reverse();
+    return resultArr;
 };
 
-let problemArr1 = [1, 2, 2, 3, 3, 4, 5, 6, 6, 7, 7, 7];
+// let problemArr1 = [1, 2, 2, 3, 3, 4, 5, 6, 6, 7, 7, 7];
 // [5, 4, 1, 6, 6, 3, 3, 2, 2, 7, 7, 7]
+let problemArr2 = [14,14,17,5,7,17,13,5,7,4,14,11,5,11,13,14,17,5,5,14,11,5,13,11,11,5,13];
+// [4, 7, 7, 17, 17, 17, 13, 13, 13, 13, 14, 14, 14, 14, 14, 11, 11, 11, 11, 11, 5, 5, 5, 5, 5, 5, 5]
+//[4, 7, 7, 17, 17, 17, 13, 13, 13, 13, 14, 14, 14, 14, 14, 11, 11, 11, 11, 11, 5, 5, 5, 5, 5, 5, 5]
 
-console.log(sortIt(problemArr1)); // [3,2,2,1,1,1]
+// console.log(sortIt(problemArr1)); // [3,2,2,1,1,1]
+console.log(sortIt(problemArr2)); // 
 // console.log(sortIt(arr42)); // [3,3,3,2,2,2,1,1,1]
-console.log(sortIt(arr43)); // [3,2,1,6,6,5,5,4,4]
+// console.log(sortIt(arr43)); // [3,2,1,6,6,5,5,4,4]
 // console.log(sortIt(problemArr1)); // [3,2,1,6,6,5,5,4,4]
 
 
@@ -472,5 +434,50 @@ console.log(sortIt(arr43)); // [3,2,1,6,6,5,5,4,4]
     //         divider *= 10;
     //     }
     // };
- 
+//===============================================================
+//===============================================================
+//===============================================================
+ // let arrWork = arr.slice();
+    // let arrObj = [];
+    // let resultArr = [];
+    // function comparator(arrX) {
+
+    //     let weight = 0;
+    //     let indexTeleport = 0;
+
+    //     for(let index = 0; index < arrWork.length; index = indexTeleport) {
+
+    //         let elementA = arrWork[index];
+        
+    //         for (let i = 0; i < arrWork.length; i++) {
+
+    //             let elementB = arrWork[i];
+    //             if(elementA === elementB && i < arr.length) {
+    //                 weight++;
+    //                 indexTeleport++;
+    //             };
+
+    //             if(elementA === elementB  && elementA !== arrWork[i+1] ) {//<--- Из-за того, что я пытался пользовать elementB[i+1] потерял 2 дня
+    //                 for (let j = 0; j < weight; j++) {
+    //                     arrObj.push({name: elementA, value: weight});
+    //                 };
+    //                 weight = 0;
+    //             };
+    //         };
+            
+    //     };
+    //     return arrObj;
+    // };
+    
+    // let arrObjWorck = comparator(arrWork);
+
+
+    // arrObjWorck.sort((a, b) => a.value - b.value || b.name - a.name);
+
+    // for (let k = 0; k < arrObjWorck.length; k++) {
+    //     let elementK = arrObjWorck[k].name;
+    //     resultArr.push(elementK);
+    // };
+    // console.log(arrObjWorck);
+    // return resultArr;
 
