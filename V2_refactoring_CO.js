@@ -37,11 +37,11 @@ removeItem(item, count) - убрать из чека count итемов
         };
 
         if(item.name in this.check&& !this.locked) {
-            if(count === undefined ||
-                count >= this.check[item.name].count) {
+            if(this.count === undefined ||
+                this.count >= this.check[item.name].count) {
                 delete this.check[item.name];
             } else {
-                this.check[item.name].count -= count;
+                this.check[item.name].count -= this.count;
             };
         };
 
